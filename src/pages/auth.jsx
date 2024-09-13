@@ -8,19 +8,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 function Auth() {
   let [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  // const {isAuthenticated, loading} = UrlState();
-  // const {isAuthenticated = false, loading = true} = UrlState() || {};
-
-  const context = UrlState();
-  
-  if (!context) {
-    console.error("UrlState is undefined. Ensure UrlProvider is wrapping the component.");
-    // Optional: render a loading spinner or fallback UI while context is unavailable
-    return <div>Loading...</div>; 
-  }
-
-  // Destructure values from the context with default fallbacks
-  const { isAuthenticated = false, loading = true } = context;
+  const {isAuthenticated, loading} = UrlState();
   const longLink = searchParams.get("createNew");
 
   useEffect(() => {
@@ -29,7 +17,7 @@ function Auth() {
   }, [isAuthenticated, loading, navigate]);
 
   return (
-    <div className="mt-36 flex flex-col items-center gap-10">
+    <div className="mt-20 flex flex-col items-center gap-10">
       <h1 className="text-5xl font-extrabold">
         {searchParams.get("createNew")
           ? "Hold up! Let's login first.."

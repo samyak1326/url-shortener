@@ -12,7 +12,7 @@ const AppLayout = () => {
                 Made By Samyak Jain.
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default AppLayout;
