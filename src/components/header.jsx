@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import {Button} from './ui/button'
+import {Button} from './ui/button.jsx'
 import {DropdownMenu,DropdownMenuContent,DropdownMenuItem,DropdownMenuLabel,DropdownMenuSeparator,DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {LogOut, LinkIcon} from "lucide-react"
