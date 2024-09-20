@@ -73,7 +73,7 @@ export async function createUrl({title, longUrl, customUrl, user_id}, qrcode) {
 
     if (error) {
         console.error(error);
-        throw new Error("Error creating short URL");
+        throw new Error("Error Creating Short URL");
     }
 
     return data;
@@ -84,7 +84,7 @@ export async function deleteUrl(id) {
 
     if (error) {
         console.error(error);
-        throw new Error("Unable to delete Url");
+        throw new Error("Unable to Delete Url");
     }
 
     return data;

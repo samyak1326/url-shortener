@@ -6,7 +6,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
+} from "./ui/dialog.jsx";
 import {Input} from "@/components/ui/input";
 import {Card} from "./ui/card";
 import {useNavigate, useSearchParams} from "react-router-dom";
@@ -59,29 +59,39 @@ export function CreateLink() {
     } = useFetch(createUrl, {...formValues, user_id: user.id});
 
     useEffect(() => {
-        if (error === null && data) {
+        if (!error && data) {
             navigate(`/link/${data[0].id}`);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [error, data]);
+    }, [error, data, navigate]);
 
     const createNewLink = async () => {
-        setErrors([]);
+        setErrors([]); // Reset errors on every submit attempt
         try {
-            await schema.validate(formValues, {abortEarly: false});
+            await schema.validate(formValues, {abortEarly: false}); // Validate form
 
-            const canvas = ref.current.canvasRef.current;
+            const canvas = ref.current?.canvasRef?.current;
+            if (!canvas) {
+                throw new Error('QR Code canvas is not available.');
+            }
+
+            // Convert canvas to blob
             const blob = await new Promise((resolve) => canvas.toBlob(resolve));
 
-            await fnCreateUrl(blob);
+            // API call
+            const response = await fnCreateUrl(blob);
+            console.log("API response: ", response); // Add this to check the response
+
         } catch (e) {
             const newErrors = {};
-
-            e?.inner?.forEach((err) => {
-                newErrors[err.path] = err.message;
-            });
-
-            setErrors(newErrors);
+            if (e?.inner) {
+                e.inner.forEach((err) => {
+                    newErrors[err.path] = err.message;
+                });
+            } else {
+                // If the error isn't from validation, log the error
+                newErrors.general = e.message;
+            }
+            setErrors(newErrors); // Set errors if validation fails
         }
     };
 
@@ -126,13 +136,12 @@ export function CreateLink() {
                         onChange={handleChange}
                     />
                 </div>
-                {error && <Error message={errors.message} />}
-                <DialogFooter className="sm:justify-start">
+                {error && <Error message={error.message || errors.general} />}
+                <DialogFooter className={"sm:justify-start"}>
                     <Button
-                        type="button"
-                        variant="destructive"
-                        onClick={createNewLink}
                         disabled={loading}
+                        onClick={createNewLink}
+                        variant={"destructive"}
                     >
                         {loading ? <BeatLoader size={10} color="white" /> : "Create"}
                     </Button>

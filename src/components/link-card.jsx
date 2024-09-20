@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import {Copy, Download, LinkIcon, Trash} from "lucide-react";
+import {Copy, Download, LinkIcon,Trash2} from "lucide-react";
 import {Link} from "react-router-dom";
 import {Button} from "./ui/button";
 import useFetch from "@/components/hooks/use-fetch";
@@ -65,9 +65,9 @@ const LinkCard = ({url = [], fetchUrls}) => {
                 <Button
                     variant="ghost"
                     onClick={() => fnDelete().then(() => fetchUrls())}
-                    disable={loadingDelete}
+                    disabled={loadingDelete}
                 >
-                    {loadingDelete ? <BeatLoader size={5} color="white" /> : <Trash />}
+                    {loadingDelete ? <BeatLoader size={5} color="white" /> : <Trash2 />}
                 </Button>
             </div>
         </div>
