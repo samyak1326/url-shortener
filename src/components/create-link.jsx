@@ -128,7 +128,7 @@ export function CreateLink() {
                 />
                 {errors.longUrl && <Error message={errors.longUrl} />}
                 <div className="flex items-center gap-2">
-                    <Card className="p-2">trimrr.in</Card> /
+                    <Card className="p-2">127.0.0.1:5173</Card> /
                     <Input
                         id="customUrl"
                         placeholder="Custom Link (optional)"

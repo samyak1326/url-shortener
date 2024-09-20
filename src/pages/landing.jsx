@@ -39,7 +39,7 @@ const LandingPage = () => {
         </Button>
       </form>
       <img alt={"URL Shortener Banner"}
-        src="/banner.jpeg" // replace with 2 in small screens
+        src="/banner.jpg" // replace with 2 in small screens
         className="w-full my-11 md:px-11"
       />
       <Accordion type="multiple" collapsible = "true" className="w-full md:px-11">
